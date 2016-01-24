@@ -1,0 +1,14 @@
+extends base
+
+block vars
+  - var title = 'Home'
+
+block body
+
+  h1 Authentication
+  
+  p Welcome to the Auth home page! In order to proceed further, you need to 
+    a(href='/login') login
+    |. Or if not a member yet, please 
+    a(href='/register') register
+    |.
