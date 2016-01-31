@@ -37,11 +37,11 @@ app.post('/register', function(req, res) {
     email: req.body.email,
     password: req.body.password
   });
-  user.save(function(error) {
+  user.save(function(errorReason) {
     var err;
-    if(error) {
+    if(errorReason) {
       err = 'Something went wrong. Please try again!';
-      if(error.code === 11000) {
+      if(errorReason.code === 11000) {
         err = 'This email is already taken. Please use another one.';
       }
       res.render('register.jade', {error: err});
@@ -55,6 +55,20 @@ app.post('/register', function(req, res) {
 
 app.get('/login', function(req, res) {
   res.render('login.jade');
+});
+
+app.post('/login', function(req, res) {
+  User.findOne({email: req.body.email}, function(err, user) {
+    if(!user) {
+      res.render('login.jade', {error: 'Invalid email or password'});
+    } else {
+      if(req.body.password === user.password) {
+        res.redirect('/dashboard');
+      } else {
+        res.render('login.jade', {error: 'Invalid email or password'});
+      }
+    }
+  });
 });
 
 app.get('/dashboard', function(req, res) {
