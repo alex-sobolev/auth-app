@@ -7,11 +7,13 @@ var app = express();
 app.locals.pretty = true;
 app.set('view engine', 'jade');
 
-// connect to database
+var Schema = mongoose.Schema;
+var objectId = Schema.ObjectId;
+
+// connect to Mongo database
 mongoose.connect('mongodb://localhost/auth');
-var schema = mongoose.Schema;
-var objectId = schema.objectId;
-var user = mongoose.model('user', new schema({
+
+var User = mongoose.model('user', new Schema( {
   id: objectId,
   login: String,
   email: {type: String, unique: true},
@@ -30,7 +32,25 @@ app.get('/register', function(req, res) {
 });
 
 app.post('/register', function(req, res) {
-  res.json(req.body);
+  var user = new User({
+    login: req.body.login,
+    email: req.body.email,
+    password: req.body.password
+  });
+  user.save(function(error) {
+    var err;
+    if(error) {
+      err = 'Something went wrong. Please try again!';
+      if(error.code === 11000) {
+        err = 'This email is already taken. Please use another one.';
+      }
+      res.render('register.jade', {error: err});
+    } else {
+      res.redirect('/dashboard');
+    }
+
+  });
+
 });
 
 app.get('/login', function(req, res) {
