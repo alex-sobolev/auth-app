@@ -55,9 +55,7 @@ app.post('/register', function(req, res) {
     } else {
       res.redirect('/dashboard');
     }
-
   });
-
 });
 
 app.get('/login', function(req, res) {
