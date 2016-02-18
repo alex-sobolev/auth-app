@@ -12,7 +12,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "echo \"Sorry, no tests to run. Shame on me:(\""
   },
   "author": "",
   "license": "ISC"
