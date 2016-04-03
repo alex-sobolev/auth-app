@@ -5,6 +5,6 @@ Instructions:<br>
 <ul>
   <li> Clone the repo;</li>
   <li> Navigate to the folder of the project and run <code>npm install</code> command.</li>
-  <li> Start nodejs by <code>node app.js</code> command from the folder of the project.</li>
+  <li> Start nodejs by <code>npm start</code> command from the folder of the project.</li>
   <li> Enjoy!</li>
 </ul>
